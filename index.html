@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+
+    <title>Number guessing game</title>
+
+    <style>
+      html {
+        font-family: sans-serif;
+      }
+
+      body {
+        width: 50%;
+        max-width: 800px;
+        min-width: 480px;
+        margin: 0 auto;
+      }
+
+      #reload,#xhr {
+        color: rgb(234, 13, 13);
+        padding: 3px;
+        margin-top: 10px;
+      }
+
+      .event-log {
+        color:brown;
+        font-size: larger;
+      }
+    </style>
+  </head>
+
+  <body>
+    <button id="xhr">Click to start request</button>
+    <button id="reload">Reload</button>
+
+    <pre readonly class="event-log"></pre>
+
+    <p class = "content"></p>
+
+    <script>
+
+      const log = document.querySelector('.event-log');
+
+      document.querySelector('#xhr').addEventListener('click', () => {
+        log.textContent = '';
+
+        const xhr = new XMLHttpRequest();
+
+        xhr.addEventListener('loadend', () => {
+          log.textContent = `${log.textContent}Finished with status: ${xhr.status}`;
+        });
+
+        xhr.open('GET', 'demofile.html');
+        xhr.send();
+        log.textContent = `${log.textContent}Started XHR request\n`;});
+
+      document.querySelector('#reload').addEventListener('click', () => {
+        log.textContent = '';
+        document.location.reload();
+      });
+    </script>
+
+    <textarea cols="10" rows="5" >Type here</textarea>
+  </body>
+</html>
